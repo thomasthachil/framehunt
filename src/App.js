@@ -4,16 +4,20 @@ import './App.css';
 
 import { parseResponseToTagMap, makeAPIRequest } from './utils';
 import { response } from './dummyResponse.js';
-import { fs } from 'fs';
-
 
 
 class App extends Component {
-  
+
   componentDidMount() {
-    //var data = fs.readFileSync("./inputs/test2.mp4", { encoding: 'base64' });
-    console.log(parseResponseToTagMap(response));
-    //console.log(makeAPIRequest(data));
+
+      var filename = "./inputs/test2.mp4";
+      var url = "/" + $.param({file: filename})
+      fetch(url, {
+          method: 'GET'
+      }).then(function(response) {
+          console.log(response);
+          console.log(makeAPIRequest(response));
+      });
   }
 
   render() {
