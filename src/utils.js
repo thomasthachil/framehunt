@@ -9,6 +9,7 @@
 */
 
 import Clarifai from 'clarifai';
+import youtubedl from 'youtube-dl';
 
 // initialize with your api key. This will also work in your browser via http://browserify.org/
 const app = new Clarifai.App({
@@ -56,3 +57,14 @@ export function makeAPIRequest(data) {
     });
 }
 
+export function YTLinkToBytes(url) {
+    var video = youtubedl('http://www.youtube.com/watch?v=90AiXO1pAiA',
+    // Optional arguments passed to youtube-dl.
+    ['--format=18'],
+    // Additional options can be given for calling `child_process.execFile()`.
+    { cwd: __dirname });
+
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(video);
+    return fileReader.result;
+}

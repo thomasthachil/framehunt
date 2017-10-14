@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { parseResponseToTagMap, makeAPIRequest } from './utils';
+import { parseResponseToTagMap, makeAPIRequest, YTLinkToBytes } from './utils';
 import { response } from './dummyResponse.js';
-import { fs } from 'fs';
 
 
 
 class App extends Component {
   
   componentDidMount() {
-    //var data = fs.readFileSync("./inputs/test2.mp4", { encoding: 'base64' });
     console.log(parseResponseToTagMap(response));
-    //console.log(makeAPIRequest(data));
+    //console.log(makeAPIRequestWithUrl(url));
+    console.log(YTLinkToBytes("https://www.youtube.com/watch?v=0O5h4enjrHw"));
   }
 
   render() {
