@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { parseResponseToTagMap, makeAPIRequest, YTLinkToBytes } from './utils';
+import { parseResponseToTagMap, makeAPIRequest } from './utils';
 import { response } from './dummyResponse.js';
 
 
-
 class App extends Component {
-  
+
   componentDidMount() {
-    console.log(parseResponseToTagMap(response));
-    //console.log(makeAPIRequestWithUrl(url));
-    console.log(YTLinkToBytes("https://www.youtube.com/watch?v=0O5h4enjrHw"));
+
+      var YTUrl = "https://www.youtube.com/watch?v=0O5h4enjrHw";
+      var url = "/bytes?url=" + YTUrl;
+      fetch(url, {
+          method: 'GET'
+      }).then(function(response) {
+          console.log(response);
+          console.log(makeAPIRequest(response));
+      });
   }
 
   render() {
