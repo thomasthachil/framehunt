@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { parseResponseToTagMap } from './utils';
+import { parseResponseToTagMap, makeAPIRequest } from './utils';
 import { response } from './dummyResponse.js';
+import { fs } from 'fs';
 
 
 
 class App extends Component {
   
   componentDidMount() {
+    //var data = fs.readFileSync("./inputs/test2.mp4", { encoding: 'base64' });
     console.log(parseResponseToTagMap(response));
+    //console.log(makeAPIRequest(data));
   }
 
   render() {
