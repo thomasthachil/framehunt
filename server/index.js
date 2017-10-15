@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var youtubedl = require('youtube-dl');
-var FileReader = require('filereader');
 var multer  = require('multer');
 var fs = require('fs');
 var ytdl = require('ytdl-core');
