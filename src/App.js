@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { parseResponseToTagMap, makeAPIRequest } from './utils';
+import { parseResponseToTagMap } from './utils';
 import { dummyResponse } from './dummyResponse.js';
 
-import { Container, Step, Button, Header } from 'semantic-ui-react';
+import { Container, Step, Button, Header, Image } from 'semantic-ui-react';
 import SelectVideoPage from './Layout/SelectVideoPage';
 import ProcessingPage from './Layout/ProcessingPage';
 import SearchPage from './Layout/SearchPage';
+
+import logo from './imgs/frameHuntWhite.png';
 
 class App extends Component {
 
@@ -23,9 +25,6 @@ class App extends Component {
     // this.nextPage.bind(this)
   }
 
-  setPage(x) {
-    this.setState({ stage: x % 3 });
-  }
   nextPage() {
     console.log("next page called!");
     this.setState({ stage: (this.state.stage + 1) % 3 });
@@ -50,7 +49,6 @@ class App extends Component {
       return (
         <SelectVideoPage
           nPage={() => this.nextPage()}
-          setPage={x => this.setPage(x)}
           setUrl={url => this.setUrl(url)}
           setResponse={r => this.setResponse(r)}
         />
@@ -82,9 +80,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header style={{ backgroundColor: 'black', borderBottom: 'thick solid #00b5ad' }} inverted onClick={() => this.setState({stage: 0})}>
-          <br />
-            <h3>Welcome to</h3>
-            <h1 style={{fontSize: '60px', fontWeight: '300'}}>FrameHunt</h1>
+            {/* <h1 style={{ fontSize: '60px', fontWeight: '300' }}>FrameHunt</h1> */}
+            <img src={logo} style={{width: 500}} alt='FrameHunt' />
             <br />
           </Header>
           <Container>
