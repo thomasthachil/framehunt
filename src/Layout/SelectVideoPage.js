@@ -26,15 +26,12 @@ export default class SelectVideoPage extends Component {
 
     handleYoutubeSubmit() {
         var ytUrl = this.state.ytUrl;
-        //console.log(ytUrl);
-        var myUrl = "https://samples.clarifai.com/demo-vid-1.mp4";
         fetch('http://52.206.8.179:5000/ytupload?url=' + ytUrl)
         .then(res => res.text())
         .then(parsedStr => {
             alert(parsedStr);
             this.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
         }).catch(e => console.log(e));
-        
     }
 
     handleRawSubmit(submitUrl) {
