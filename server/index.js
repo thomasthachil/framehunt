@@ -34,8 +34,8 @@ router.get('/bytes', function(req, res, next) {
 
 // Get byte stream for video
 router.post('/upload', upload.single('video'), function(req, res, next) {
-  var video = req.file;
-  res.send(fs.readFileSync(video.path, { encoding: 'base64' }));
+    var video = req.file;
+    res.send(fs.readFileSync(video.path, { encoding: 'base64' }));
 });
 
 module.exports = router;
