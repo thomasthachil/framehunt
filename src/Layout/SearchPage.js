@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Input, Label, Form, Button, Message } from 'semantic-ui-react';
+import { Input, Label, Form, Button, Message, Segment } from 'semantic-ui-react';
 import { Player, ControlBar, ReplayControl,
     ForwardControl, CurrentTimeDisplay,
     TimeDivider, PlaybackRateMenuButton, VolumeMenuButton
@@ -17,6 +17,7 @@ export default class SearchPage extends Component {
         this.state = {
             searchTag: "",
             seekButtons: null,
+            selectedTag: null,
         }
     }
 
@@ -33,7 +34,11 @@ export default class SearchPage extends Component {
                         as='a'
                         color='teal'
                         image
-                        onClick={() => this.renderButtonArr(tag)}
+                        onClick={() => {
+                            this.renderButtonArr(tag);
+                            console.log("selected", tag);
+                            this.setState({selectedTag: tag});
+                            }}
                         style={{margin: '2px'}}
                     >
                         {`${tag}: `}
@@ -50,6 +55,8 @@ export default class SearchPage extends Component {
 
     renderButtonArr(tag) {
         const { TagMap } = this.props;
+
+        this.setState({selectedTag: tag});
 
         const buttonArr = [];
         if (!(tag in TagMap)) {
@@ -91,7 +98,7 @@ export default class SearchPage extends Component {
                 </Label.Group>
                 <br />
 
-                <Form onSubmit={() => this.renderButtonArr(this.state.searchTag)}>
+                <Form onSubmit={() => {this.renderButtonArr(this.state.searchTag)}}>
                     <Input
                         action={{ icon: 'search' }}
                         placeholder='Search for frames by tags'
@@ -101,9 +108,11 @@ export default class SearchPage extends Component {
                 </Form>
                 <br />
 
-
-                {this.state.seekButtons}
-
+                {this.state.selectedTag && <Segment>
+                    <h3>{this.state.selectedTag}</h3>
+                    {this.state.seekButtons}
+                </Segment>
+}
                 <br />
                 <br />
                 <Player
