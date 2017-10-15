@@ -10,7 +10,7 @@ import ProcessingPage from './Layout/ProcessingPage';
 import SearchPage from './Layout/SearchPage';
 
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +23,9 @@ class App extends Component {
     // this.nextPage.bind(this)
   }
 
+  setPage(x) {
+    this.setState({ stage: x % 3 });
+  }
   nextPage() {
     console.log("next page called!");
     this.setState({ stage: (this.state.stage + 1) % 3 });
@@ -47,6 +50,7 @@ class App extends Component {
       return (
         <SelectVideoPage
           nPage={() => this.nextPage()}
+          setPage={x => this.setPage(x)}
           setUrl={url => this.setUrl(url)}
           setResponse={r => this.setResponse(r)}
         />
