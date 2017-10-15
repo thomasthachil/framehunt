@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { parseResponseToTagMap } from './utils';
+import { parseResponseToTagMap, makeAPIRequest } from './utils';
 import { dummyResponse } from './dummyResponse.js';
 
 import { Container, Step, Button, Header } from 'semantic-ui-react';
@@ -9,10 +9,8 @@ import SelectVideoPage from './Layout/SelectVideoPage';
 import ProcessingPage from './Layout/ProcessingPage';
 import SearchPage from './Layout/SearchPage';
 
-
-
 class App extends Component {
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -24,9 +22,21 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // test parsing response
     const tM = parseResponseToTagMap(this.state.response);
     console.log(tM);
     this.setState({ tagMap: tM });
+    
+    /*
+    var YTUrl = "https://www.youtube.com/watch?v=0O5h4enjrHw";
+      var url = "/bytes?url=" + YTUrl;
+      fetch(url, {
+          method: 'GET'
+      }).then(function(response) {
+          console.log(response);
+          //console.log(makeAPIRequest(response));
+      });
+     */
   }
 
   nextPage() {
