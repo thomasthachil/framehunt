@@ -120,6 +120,6 @@ export default class SelectVideoPage extends Component {
                 </Form>
 
             </Container>
-        )
+        );
     }
 }
