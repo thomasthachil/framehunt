@@ -24,21 +24,22 @@ export default class SelectVideoPage extends Component {
     }
 
     handleYoutubeSubmit() {
-        const url = this.state.url;
+        const url = this.state.ytUrl;
         fetch('/ytupload?url=' + url).then(e => {
-            alert(e);
+            //alert(e);
             console.log(e);
-            this.props.nPage();
-            cApp.models.predict(Clarifai.GENERAL_MODEL,
-                {e},
-                { video: true })
-            .then(e => {
-                this.props.nPage();
-                this.props.setResponse(e);
+            //alert(e);
+            //this.props.nPage();
+            // cApp.models.predict(Clarifai.GENERAL_MODEL,
+            //     {e},
+            //     { video: true })
+            // .then(e => {
+            //     this.props.nPage();
+            //     this.props.setResponse(e);
     
-                console.log(e);
-            })
-            .catch(e => console.log('error', e));
+            //     console.log(e);
+            // })
+            // .catch(e => console.log('error', e));
             console.log('upload post result: ', e);
         });
 
