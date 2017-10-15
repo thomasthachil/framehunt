@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Form, Button } from 'semantic-ui-react';
+import { Container, Form, Button, Input } from 'semantic-ui-react';
 
 import { makeAPIRequest, cApp } from '../utils';
 
@@ -27,9 +27,14 @@ export default class SelectVideoPage extends Component {
         } catch (e) {
           console.log(d);
         }
-      }
+    }
 
-    handleUrlSubmit() {
+    handleYoutubeSubmit() {
+        //tommy's youtube magic here
+        console.log("tommy do your thang");
+    }
+
+    handleRawSubmit() {
         console.log('SVP:', this.state.url);
         this.props.setUrl(this.state.url);
         this.props.nPage();
@@ -44,9 +49,6 @@ export default class SelectVideoPage extends Component {
             console.log(e);
         })
         .catch(e => console.log('error', e));
-
-        // console.log("passed clarafai request");
-        // this.props.nextPage();
     }
 
     handleFileUpload(e) {
@@ -71,27 +73,41 @@ export default class SelectVideoPage extends Component {
     render() {
         return (
             <Container>
-                <Form onSubmit={() => this.handleUrlSubmit()}>
-                    Link Youtube Video
+                <h4>Link Youtube Video</h4>
+                <Form onSubmit={() => this.handleYoutubeSubmit()}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
                         iconPosition='left'
-                        icon='linkify'
+                        action={{ icon: 'youtube play' }}
                         placeholder='Paste Youtube Link'
                         onChange={e => this.setState({url: e.target.value})}
                         value = {this.state.url}
                     />
-                        <h3> OR</h3>
                 </Form>
+                <h3> OR</h3>
+                <h4>Link Raw Video</h4>
+                <Form onSubmit={() => this.handleRawSubmit()}>
+                    <Form.Input
+                        style={{ alignSelf: 'center' }}
+                        iconPosition='left'
+                        action={{ icon: 'file video outline' }}
+                        placeholder='Paste Raw Link'
+                        onChange={e => this.setState({url: e.target.value})}
+                        value = {this.state.url}
+                    />
+                </Form>
+                <h3> OR</h3>
+                <h4>Upload Video</h4>
+
 
                 <Form onSubmit={() => this.handleFileUpload()}>
                     <Form.Input className="fileInput"
                         type="file"
                         name="video"
                         onChange={(e) => this.handleFileUpload(e)}
+                        action={{ icon: 'cloud upload' }}
                     />
 
-                    <Form.Input type="submit" name="submit"/>
                 </Form>
 
             </Container>
