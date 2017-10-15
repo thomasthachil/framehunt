@@ -3,7 +3,7 @@ var router = express.Router();
 var youtubedl = require('youtube-dl');
 var FileReader = require('filereader');
 
-/* GET home page. */
+// Get byte stream for video
 router.get('/bytes', function(req, res, next) {
     console.log(req.query.url)
     var video = youtubedl(req.query.url);
@@ -18,10 +18,6 @@ router.get('/bytes', function(req, res, next) {
     fileReader.readAsDataURL(video);
     res.send(fileReader.result);
 
-  // // res.render('index', { title: 'Express' });
-  // var filename = req.query.file;
-  // console.log(filename);
-  // console.log("received");
   // res.send(fs.readFileSync(filename, { encoding: 'base64' }));
 });
 
