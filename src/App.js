@@ -10,7 +10,7 @@ class App extends Component {
 
   componentDidMount() {
 
-      var YTUrl = "https://youtu.be/0O5h4enjrHw";
+      var YTUrl = "https://www.youtube.com/watch?v=0O5h4enjrHw";
       var url = "/bytes?url=" + YTUrl;
       fetch(url, {
           method: 'GET'

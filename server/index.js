@@ -6,11 +6,13 @@ var FileReader = require('filereader');
 /* GET home page. */
 router.get('/bytes', function(req, res, next) {
     console.log(req.query.url)
-    var video = youtubedl(req.query.url,
-    // Optional arguments passed to youtube-dl.
-    ['--format=18'],
-    // Additional options can be given for calling `child_process.execFile()`.
-    { cwd: __dirname });
+    var video = youtubedl(req.query.url);
+
+    video.on('info', function(info) {
+      console.log('Download started');
+      console.log('filename: ' + info.filename);
+      console.log('size: ' + info.size);
+    });
 
     var fileReader = new FileReader();
     fileReader.readAsDataURL(video);
