@@ -51,10 +51,10 @@ export default class SelectVideoPage extends Component {
 
             console.log(e);
         })
-            .catch(e => {
-                alert('We were not able to parse your video!', e);
-                this.props.setPage(0);
-            });
+        .catch(e => {
+            alert('We were not able to parse your video!', e);
+            this.props.setPage(0);
+        });
     }
 
     handleFileUpload(e) {
