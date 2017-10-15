@@ -23,7 +23,7 @@ var counter = 0;
 
 // Upload video to public folder and return filename
 router.get('/ytupload', function(req, res, next) {
-  console.log(req.query.url);
+    //console.log(req.query.url);
     var filename =  "video" + counter + ".mp4";
     counter += 1;
     ytdl(req.query.url)
@@ -32,7 +32,8 @@ router.get('/ytupload', function(req, res, next) {
         
       // });
     //res.set("hello", filename);
-    res.send(filename);
+    res.write(filename);
+    res.end();
 });
 
 // Get byte stream for video

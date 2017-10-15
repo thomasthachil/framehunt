@@ -25,22 +25,20 @@ export default class SelectVideoPage extends Component {
 
     handleYoutubeSubmit() {
         const url = this.state.ytUrl;
-        fetch('/ytupload?url=' + url).then(e => {
-            //alert(e);
-            console.log(e);
-            //alert(e);
-            //this.props.nPage();
-            // cApp.models.predict(Clarifai.GENERAL_MODEL,
-            //     {e},
-            //     { video: true })
-            // .then(e => {
-            //     this.props.nPage();
-            //     this.props.setResponse(e);
-    
-            //     console.log(e);
-            // })
-            // .catch(e => console.log('error', e));
-            console.log('upload post result: ', e);
+        fetch('/ytupload?url=' + url)
+            .then(res => res.text())
+            .then(res => {
+                var url = "https://samples.clarifai.com/demo-vid-1.mp4"
+                cApp.models.predict(Clarifai.GENERAL_MODEL,
+                    {url},
+                    { video: true })
+                .then(e => {
+                    this.props.nPage();
+                    this.props.setResponse(e);
+        
+                    console.log(e);
+                })
+                .catch(e => console.log('error', e));
         });
 
 
