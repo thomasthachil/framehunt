@@ -2,9 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Form, Button } from 'semantic-ui-react';
 
-import { makeAPIRequest, cApp } from '../utils';
-
-import Clarifai from 'clarifai';
+import { makeAPIRequestWithBytes, makeAPIRequestWithUrl } from '../utils';
 
 
 export default class SelectVideoPage extends Component {
@@ -34,18 +32,10 @@ export default class SelectVideoPage extends Component {
         this.props.setUrl(this.state.url);
         this.props.nPage();
         const url = this.state.url;
-        cApp.models.predict(Clarifai.GENERAL_MODEL,
-            {url},
-            { video: true })
-        .then(e => {
-            this.props.nPage();
-            this.props.setResponse(e);
+        this.props.nPage();
+        this.props.setResponse(makeAPIRequestWithUrl(url));
 
-            console.log(e);
-        })
-        .catch(e => console.log('error', e));
-
-        // console.log("passed clarafai request");
+        // console.log("passed clarifai request");
         // this.props.nextPage();
     }
 

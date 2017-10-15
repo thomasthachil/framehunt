@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { parseResponseToTagMap, makeAPIRequest } from './utils';
+import { parseResponseToTagMap } from './utils';
 import { dummyResponse } from './dummyResponse.js';
 
 import { Container, Step, Button, Header } from 'semantic-ui-react';
