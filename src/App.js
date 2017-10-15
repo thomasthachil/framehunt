@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import { parseResponseToTagMap } from './utils';
 import { dummyResponse } from './dummyResponse.js';
 
-import { Container, Input, Step, Icon, Button, Header } from 'semantic-ui-react';
+import { Container, Step, Button, Header } from 'semantic-ui-react';
 import SelectVideoPage from './Layout/SelectVideoPage';
 import ProcessingPage from './Layout/ProcessingPage';
 import SearchPage from './Layout/SearchPage';
@@ -17,12 +16,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stage: 2,
+      stage: 0,
       response: dummyResponse,
       tagMap: null,
+
     };
   }
-
 
   componentDidMount() {
     const tM = parseResponseToTagMap(this.state.response);
@@ -30,19 +29,29 @@ class App extends Component {
     this.setState({ tagMap: tM });
   }
 
+  nextPage() {
+    console.log(this.state);
+    this.setState({stage: (this.state.stage + 1) % 3})
+  }
+
   renderSubpage() {
     if (this.state.stage === 0) {
       return (
-        <SelectVideoPage />
+        <SelectVideoPage
+          nextPage={this.nextPage}
+        />
       );
     } else if (this.state.stage === 1) {
       return (
-        <ProcessingPage />
+        <ProcessingPage
+          nextPage={this.nextPage}
+        />
       );
     } else {
       return (
         <SearchPage
           TagMap={this.state.tagMap}
+          nextPage={this.nextPage}
         />
       );
     }

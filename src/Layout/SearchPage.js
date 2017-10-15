@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Container, Input, Icon, Label } from 'semantic-ui-react';
+import { Input, Label, Form } from 'semantic-ui-react';
 
 
 export default class SearchPage extends Component {
     static propTypes = {
+        nextPage: PropTypes.func,
+    }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            url: "",
+        }
     }
 
     renderLabels() {
@@ -14,7 +21,9 @@ export default class SearchPage extends Component {
 
         for (let tag in TagMap) {
             tagArr.push(
-                <Label>
+                <Label
+                    key={tag}
+                >
                     <span>{`${tag}: `}</span>
                     {TagMap[tag].length}
                 </Label>
@@ -27,7 +36,13 @@ export default class SearchPage extends Component {
     render() {
         return (
             <div>
-                <Input icon='search' placeholder='Search for frames by tags' />
+                <Form onSubmit={() => console.log('submitted!')}>
+                    <Input
+                        action={{ icon: 'search' }}
+                        placeholder='Search for frames by tags'
+                        onChange={url => this.setState({url})}
+                    />
+                </Form>
                 <br />
                 <br />
 
