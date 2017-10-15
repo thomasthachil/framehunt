@@ -13,6 +13,12 @@ export const cApp = new Clarifai.App({
     apiKey: 'be5a7ee646c14bb0ac0e5f6f0baabb7f'
 });
 
+
+
+
+// You can also use the SDK by adding this script to your HTML:
+//<script type="text/javascript" src="https://sdk.clarifai.com/js/clarifai-latest.js"></script>
+
 export function parseResponseToTagMap(response) {
     const threshold = 0.8;
     const tagMap = {};
@@ -38,6 +44,7 @@ export function parseResponseToTagMap(response) {
 
 }
 
+
 export function timeFormat(sec) {
     let date = new Date(sec);
     let hh = date.getUTCHours();
@@ -62,6 +69,7 @@ export function timeFormat(sec) {
 export function makeAPIRequest(data) {
 
     cApp.models.predict(Clarifai.GENERAL_MODEL, {base64: data}, {video: true})
+
     .then(function(response) {
         return response;
     })
@@ -70,4 +78,3 @@ export function makeAPIRequest(data) {
         return null;
     });
 }
-
