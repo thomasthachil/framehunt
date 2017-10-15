@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Form, Button, Input } from 'semantic-ui-react';
-import axios from 'axios';
 
-import { cApp } from '../utils';
+import { makeAPIRequest, cApp } from '../utils';
 
 import Clarifai from 'clarifai';
+
+
 
 export default class SelectVideoPage extends Component {
     static propTypes = {
@@ -22,28 +23,24 @@ export default class SelectVideoPage extends Component {
 
     }
 
-    async handleYoutubeSubmit() {
-        var ytUrl = this.state.ytUrl;
-        var mythis = this;
-        fetch('http://52.206.8.179:5000/ytupload?url=' + ytUrl)
-        .then(res => res.text())
-        .then(parsedStr => {
-            setTimeout(function() {
-                mythis.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
-            }, 2000);
-        }).catch(e => console.log(e));
+    handleYoutubeSubmit() {
+        //tommy's youtube magic here
+        // use this.state.ytUrl
+        alert("tommy do your thang");
     }
 
-    handleRawSubmit(submitUrl) {
-        this.props.setUrl(submitUrl);
+    handleRawSubmit() {
+        console.log('SVP:', this.state.rawUrl);
+        this.props.setUrl(this.state.rawUrl);
         this.props.nPage();
+        const rawUrl = this.state.rawUrl;
 
-        console.log('video being submitted:', submitUrl);
+        console.log('video being submitted:', rawUrl);
 
         console.log(cApp);
 
         cApp.models.predict(Clarifai.GENERAL_MODEL,
-            {url: submitUrl},
+            {url: rawUrl},
             { video: true })
         .then(e => {
             this.props.nPage();
@@ -93,9 +90,6 @@ export default class SelectVideoPage extends Component {
                         value = {this.state.ytUrl}
                     />
                 </Form>
-                <h3> OR</h3>
-                <h4>Link Raw Video</h4>
-                <Form onSubmit={() => this.handleRawSubmit(this.state.rawUrl)}>
                 <h3>LINK RAW VIDEO</h3>
                 <Form onSubmit={() => this.handleRawSubmit()}>
                     <Form.Input
