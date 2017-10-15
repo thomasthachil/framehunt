@@ -21,14 +21,6 @@ export default class SelectVideoPage extends Component {
 
     }
 
-    log(d) {
-        try {
-          console.log(JSON.stringify(d, null, 2));
-        } catch (e) {
-          console.log(d);
-        }
-    }
-
     handleYoutubeSubmit() {
         //tommy's youtube magic here
         console.log("tommy do your thang");
