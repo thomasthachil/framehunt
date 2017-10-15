@@ -69,7 +69,7 @@ export default class SelectVideoPage extends Component {
         .then(res => res.text())
         .then(parsedStr => {
             setTimeout(function() {
-                mythis.handleRawSubmit(parsedStr);
+                mythis.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
             }, 2000);
         }).catch(e => {
             alert('We were not able to parse your video!', e);

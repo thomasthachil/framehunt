@@ -34,7 +34,7 @@ router.get('/ytupload', cors(), function(req, res, next) {
 router.post('/upload', cors(), upload.single('video'), function(req, res, next) {
     var video = req.file;
     console.log(video.path);
-    res.send(video.path);
+    res.send(video.filename);
 });
 
 module.exports = router;
