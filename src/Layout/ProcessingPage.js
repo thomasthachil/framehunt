@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react'
+import { Loader } from 'semantic-ui-react'
 
 
 export default class ProcessingPage extends Component {
     static propTypes = {
-
+        nextPage: PropTypes.func,
     }
 
     render() {
