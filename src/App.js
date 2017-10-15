@@ -77,13 +77,10 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header style={{backgroundColor: 'black'}} inverted>
+        <Header style={{ backgroundColor: 'black', borderBottom: 'thick solid #00b5ad' }} inverted onClick={() => this.setState({stage: 0})}>
           <br />
-            <h4>Welcome to</h4>
-            <h1 className="App-title">FrameHunt</h1>
-            <Button onClick={() => this.setState({stage: (this.state.stage + 1) % 3})}>
-              Next step
-            </Button>
+            <h3>Welcome to</h3>
+            <h1 style={{fontSize: '60px', fontWeight: '300'}}>FrameHunt</h1>
             <br />
           </Header>
           <Container>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Form, Button } from 'semantic-ui-react';
 
+import { makeAPIRequest, cApp } from '../utils';
+
 import Clarifai from 'clarifai';
 
 
@@ -16,9 +18,7 @@ export default class SelectVideoPage extends Component {
             url: "",
             file: null,
         };
-        this.cAPP = new Clarifai.App({
-            apiKey: 'be5a7ee646c14bb0ac0e5f6f0baabb7f'
-        });
+
     }
 
     log(d) {
@@ -34,7 +34,7 @@ export default class SelectVideoPage extends Component {
         this.props.setUrl(this.state.url);
         this.props.nPage();
         const url = this.state.url;
-        this.cAPP.models.predict(Clarifai.GENERAL_MODEL,
+        cApp.models.predict(Clarifai.GENERAL_MODEL,
             {url},
             { video: true })
         .then(e => {
@@ -51,17 +51,21 @@ export default class SelectVideoPage extends Component {
 
     handleFileUpload(e) {
         console.log('uploaded:');
-        // console.log(e);
 
-        let reader = new FileReader();
-        let file = e.target.files[0];
-
+        var data = new FormData()
+        data.append('video', e.target.files[0])
+        this.props.nPage();
         fetch('/upload', {
             method: 'POST',
-            body: file
-        }).then(response => console.log(response.json()));
+            body: data
+        }).then(e => {
+            this.props.nPage();
+            // makeAPIRequest()
+            console.log('upload post result: ', e);
+        });
 
-        console.log(file);
+
+        console.log(e);
     }
 
     render() {
@@ -80,14 +84,14 @@ export default class SelectVideoPage extends Component {
                         <h3> OR</h3>
                 </Form>
 
-                <Form onSubmit={() => console.log('uploading')}>
+                <Form onSubmit={() => this.handleFileUpload()}>
                     <Form.Input className="fileInput"
                         type="file"
                         name="video"
                         onChange={(e) => this.handleFileUpload(e)}
                     />
 
-                    <Form.Input type="submit" name="submit" />
+                    <Form.Input type="submit" name="submit"/>
                 </Form>
 
             </Container>
