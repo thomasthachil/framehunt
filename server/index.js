@@ -5,6 +5,7 @@ var FileReader = require('filereader');
 
 /* GET home page. */
 router.get('/bytes', function(req, res, next) {
+    console.log(req.query.url)
     var video = youtubedl(req.query.url,
     // Optional arguments passed to youtube-dl.
     ['--format=18'],

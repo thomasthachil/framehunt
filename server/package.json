@@ -9,6 +9,8 @@
     "body-parser": "~1.18.2",
     "debug": "~2.6.9",
     "express": "~4.15.5",
-    "morgan": "~1.9.0"
+    "filereader": "^0.10.3",
+    "morgan": "~1.9.0",
+    "youtube-dl": "^1.12.2"
   }
 }
