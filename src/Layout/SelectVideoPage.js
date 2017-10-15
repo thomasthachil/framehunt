@@ -7,8 +7,6 @@ import { cApp } from '../utils';
 
 import Clarifai from 'clarifai';
 
-
-
 export default class SelectVideoPage extends Component {
     static propTypes = {
         nextPage: PropTypes.func,
@@ -24,12 +22,15 @@ export default class SelectVideoPage extends Component {
 
     }
 
-    handleYoutubeSubmit() {
+    async handleYoutubeSubmit() {
         var ytUrl = this.state.ytUrl;
+        var mythis = this;
         fetch('http://52.206.8.179:5000/ytupload?url=' + ytUrl)
         .then(res => res.text())
         .then(parsedStr => {
-            this.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
+            setTimeout(function() {
+                mythis.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
+            }, 2000);
         }).catch(e => console.log(e));
     }
 
