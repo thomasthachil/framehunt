@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Input, Label, Form, Button } from 'semantic-ui-react';
+import { Input, Label, Form, Button, Message } from 'semantic-ui-react';
 import { Player, ControlBar, ReplayControl,
     ForwardControl, CurrentTimeDisplay,
     TimeDivider, PlaybackRateMenuButton, VolumeMenuButton
@@ -52,6 +52,17 @@ export default class SearchPage extends Component {
         const { TagMap } = this.props;
 
         const buttonArr = [];
+        if (!(tag in TagMap)) {
+            console.log("Error in search");
+            this.setState({
+                seekButtons: (
+                    <Message negative>
+                        <Message.Header>Unidentified Tag</Message.Header>
+                        <p>{`We're sorry, we were'nt able to find ${tag} in the video`}</p>
+                    </Message> )
+            });
+            return;
+        }
         TagMap[tag].forEach((time, index) => {
             const t = timeFormat(time);
             const timeSec = time / 1000;
