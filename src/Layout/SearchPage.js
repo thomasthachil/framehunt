@@ -5,7 +5,7 @@ import { Player, ControlBar, ReplayControl,
     ForwardControl, CurrentTimeDisplay,
     TimeDivider, PlaybackRateMenuButton, VolumeMenuButton
   } from 'video-react';
-
+import { timeFormat } from '../utils';
 
 export default class SearchPage extends Component {
     static propTypes = {
@@ -15,7 +15,7 @@ export default class SearchPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tag: "",
+            searchTag: "",
             seekButtons: null,
         }
     }
@@ -25,33 +25,44 @@ export default class SearchPage extends Component {
         const tagArr = [];
 
         for (let tag in TagMap) {
-            tagArr.push(
-                <Label
-                    key={tag}
-                >
-                    <span>{`${tag}: `}</span>
-                    {TagMap[tag].length}
-                </Label>
-            );
+            const l = TagMap[tag].length;
+            if (l < 15) {
+                tagArr.push(
+                    <Label
+                        key={tag}
+                        as='a'
+                        color='teal'
+                        image
+                        onClick={() => this.renderButtonArr(tag)}
+                        style={{margin: '2px'}}
+                    >
+                        {`${tag}: `}
+                        <Label.Detail>
+                            {TagMap[tag].length}
+                        </Label.Detail>
+                    </Label>
+                );
+            }
         }
 
         return tagArr;
     }
 
-    renderResults(tag) {
+    renderButtonArr(tag) {
         const { TagMap } = this.props;
-        // console.log('submitted!', tag);
 
-        // console.log(this.state.tag);
-        console.log("tag recieved:", tag);
         const buttonArr = [];
         TagMap[tag].forEach((time, index) => {
+            const t = timeFormat(time);
             const timeSec = time / 1000;
+
             buttonArr.push(
                 <Button
+                    key={`${tag}${timeSec}`}
                     onClick={() => this.refs.player.seek(timeSec)}
+                    secondary
                 >
-                    {`${timeSec} sec`}
+                    {`${t}`}
                 </Button>
             );
         });
@@ -64,12 +75,17 @@ export default class SearchPage extends Component {
     render() {
         return (
             <div>
-                <Form onSubmit={() => this.renderResults(this.state.tag)}>
+                <Label.Group>
+                    {this.renderLabels()}
+                </Label.Group>
+                <br />
+
+                <Form onSubmit={() => this.renderButtonArr(this.state.searchTag)}>
                     <Input
                         action={{ icon: 'search' }}
                         placeholder='Search for frames by tags'
-                        onChange={e => this.setState({tag: e.target.value})}
-                        value = {this.state.tag}
+                        onChange={e => this.setState({searchTag: e.target.value})}
+                        value = {this.state.searchTag}
                     />
                 </Form>
                 <br />
@@ -77,6 +93,7 @@ export default class SearchPage extends Component {
 
                 {this.state.seekButtons}
 
+                <br />
                 <br />
                 <Player
                     poster="/assets/poster.png"
@@ -99,7 +116,7 @@ export default class SearchPage extends Component {
                 </Player>
                 <br />
 
-                {this.renderLabels()}
+
 
             </div>
         )
