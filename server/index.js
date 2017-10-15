@@ -21,15 +21,16 @@ var upload = multer({
 
 var counter = 0;
 
-// Get byte stream for video
-router.get('/bytes', function(req, res, next) {
+// Upload video to public folder and return filename
+router.get('/ytupload', function(req, res, next) {
     var filename =  "video" + counter + ".mp4";
     counter += 1;
     ytdl(req.query.url)
-      .pipe(fs.createWriteStream("../public/" + filename)).on('finish', function() {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(filename);
-      });
+      .pipe(fs.createWriteStream("../public/videos/" + filename))
+      // .on('finish', function() {
+        
+      // });
+    res.send(filename);
 });
 
 // Get byte stream for video

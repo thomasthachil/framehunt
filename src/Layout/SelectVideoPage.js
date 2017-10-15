@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Container, Form, Button, Input } from 'semantic-ui-react';
 
-import { makeAPIRequestWithBytes, makeAPIRequestWithUrl } from '../utils';
+import { cApp } from '../utils';
+
+import Clarifai from 'clarifai';
 
 
 export default class SelectVideoPage extends Component {
@@ -28,6 +30,25 @@ export default class SelectVideoPage extends Component {
     }
 
     handleYoutubeSubmit() {
+        const url = this.state.url;
+        fetch('/ytupload?url=' + url).then(e => {
+            alert(e);
+            console.log(e);
+            this.props.nPage();
+            cApp.models.predict(Clarifai.GENERAL_MODEL,
+                {e},
+                { video: true })
+            .then(e => {
+                this.props.nPage();
+                this.props.setResponse(e);
+    
+                console.log(e);
+            })
+            .catch(e => console.log('error', e));
+            console.log('upload post result: ', e);
+        });
+
+
         //tommy's youtube magic here
         console.log("tommy do your thang");
     }
@@ -37,11 +58,16 @@ export default class SelectVideoPage extends Component {
         this.props.setUrl(this.state.url);
         this.props.nPage();
         const url = this.state.url;
-        this.props.nPage();
-        this.props.setResponse(makeAPIRequestWithUrl(url));
+        cApp.models.predict(Clarifai.GENERAL_MODEL,
+            {url},
+            { video: true })
+        .then(e => {
+            this.props.nPage();
+            this.props.setResponse(e);
 
-        // console.log("passed clarifai request");
-        // this.props.nextPage();
+            console.log(e);
+        })
+        .catch(e => console.log('error', e));
     }
 
     handleFileUpload(e) {
@@ -55,7 +81,7 @@ export default class SelectVideoPage extends Component {
             body: data
         }).then(e => {
             this.props.nPage();
-            this.props.setResponse(makeAPIRequestWithBytes(e));
+            // makeAPIRequest()
             console.log('upload post result: ', e);
         });
 
