@@ -40,20 +40,16 @@ export default class SelectVideoPage extends Component {
 
         console.log('video being submitted:', submitUrl);
 
-        console.log(cApp);
-
         cApp.models.predict(Clarifai.GENERAL_MODEL,
             {url: submitUrl},
             { video: true })
         .then(e => {
             this.props.nPage();
             this.props.setResponse(e);
-
-            console.log(e);
         })
         .catch(e => {
             alert('We were not able to parse your video!', e);
-            this.props.setPage(0);
+
         });
     }
 
@@ -69,16 +65,11 @@ export default class SelectVideoPage extends Component {
         .then(res => res.text())
         .then(parsedStr => {
             setTimeout(function() {
-                console.log(parsedStr);
                 mythis.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
             }, 2000);
         }).catch(e => {
             alert('We were not able to parse your video!', e);
-            this.props.setPage(0);
         });
-
-
-        console.log(e);
     }
 
     render() {
