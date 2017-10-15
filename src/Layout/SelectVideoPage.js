@@ -7,6 +7,7 @@ import { cApp } from '../utils';
 import Clarifai from 'clarifai';
 
 
+
 export default class SelectVideoPage extends Component {
     static propTypes = {
         nextPage: PropTypes.func,
@@ -15,18 +16,11 @@ export default class SelectVideoPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            url: "",
+            rawUrl: "",
+            ytUrl:"",
             file: null,
         };
 
-    }
-
-    log(d) {
-        try {
-          console.log(JSON.stringify(d, null, 2));
-        } catch (e) {
-          console.log(d);
-        }
     }
 
     handleYoutubeSubmit() {
@@ -50,16 +44,22 @@ export default class SelectVideoPage extends Component {
 
 
         //tommy's youtube magic here
+        // use this.state.ytUrl
         console.log("tommy do your thang");
     }
 
     handleRawSubmit() {
-        console.log('SVP:', this.state.url);
-        this.props.setUrl(this.state.url);
+        console.log('SVP:', this.state.rawUrl);
+        this.props.setUrl(this.state.rawUrl);
         this.props.nPage();
-        const url = this.state.url;
+        const rawUrl = this.state.rawUrl;
+
+        console.log('video being submitted:', rawUrl);
+
+        console.log(cApp);
+
         cApp.models.predict(Clarifai.GENERAL_MODEL,
-            {url},
+            {url: rawUrl},
             { video: true })
         .then(e => {
             this.props.nPage();
@@ -67,7 +67,9 @@ export default class SelectVideoPage extends Component {
 
             console.log(e);
         })
-        .catch(e => console.log('error', e));
+            .catch(e => {
+                console.log('error', e);
+            });
     }
 
     handleFileUpload(e) {
@@ -99,8 +101,8 @@ export default class SelectVideoPage extends Component {
                         iconPosition='left'
                         action={{ icon: 'youtube play' }}
                         placeholder='Paste Youtube Link'
-                        onChange={e => this.setState({url: e.target.value})}
-                        value = {this.state.url}
+                        onChange={e => this.setState({ytUrl: e.target.value})}
+                        value = {this.state.ytUrl}
                     />
                 </Form>
                 <h3> OR</h3>
@@ -111,8 +113,8 @@ export default class SelectVideoPage extends Component {
                         iconPosition='left'
                         action={{ icon: 'file video outline' }}
                         placeholder='Paste Raw Link'
-                        onChange={e => this.setState({url: e.target.value})}
-                        value = {this.state.url}
+                        onChange={e => this.setState({rawUrl: e.target.value})}
+                        value = {this.state.rawUrl}
                     />
                 </Form>
                 <h3> OR</h3>
