@@ -17,41 +17,59 @@ class App extends Component {
     super(props);
     this.state = {
       stage: 0,
-      response: dummyResponse,
+      response: null,
       tagMap: null,
+      url: null,
 
     };
+    // this.nextPage.bind(this)
   }
 
-  componentDidMount() {
-    const tM = parseResponseToTagMap(this.state.response);
-    console.log(tM);
-    this.setState({ tagMap: tM });
-  }
+  // componentDidMount() {
+  //   const tM = parseResponseToTagMap(this.state.response);
+  //   console.log(tM);
+  //   this.setState({ tagMap: tM });
+  // }
 
   nextPage() {
-    console.log(this.state);
-    this.setState({stage: (this.state.stage + 1) % 3})
+    console.log("next page called!");
+    this.setState({ stage: (this.state.stage + 1) % 3 });
+  }
+
+  setUrl(url) {
+    this.setState({ url });
+  }
+
+  setResponse(response) {
+    console.log('got ', response);
+    const tM = parseResponseToTagMap(response);
+    console.log(tM);
+    this.setState({ tagMap: tM });
+    // this.setState({ response });
+
   }
 
   renderSubpage() {
     if (this.state.stage === 0) {
       return (
         <SelectVideoPage
-          nextPage={this.nextPage}
+          nPage={() => this.nextPage()}
+          setUrl={url => this.setUrl(url)}
+          setResponse={r => this.setResponse(r)}
         />
       );
     } else if (this.state.stage === 1) {
       return (
         <ProcessingPage
-          nextPage={this.nextPage}
+          nPage={() => this.nextPage()}
         />
       );
     } else {
       return (
         <SearchPage
           TagMap={this.state.tagMap}
-          nextPage={this.nextPage}
+          nPage={() => this.nextPage()}
+          url={this.state.url}
         />
       );
     }
