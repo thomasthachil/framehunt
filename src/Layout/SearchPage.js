@@ -107,7 +107,6 @@ export default class SearchPage extends Component {
                 <br />
                 <br />
                 <Player
-                    poster="/assets/poster.png"
                     ref="player"
                 >
                 <source src={this.props.url} />

@@ -66,9 +66,22 @@ export function timeFormat(sec) {
     return time;
 }
 
-export function makeAPIRequest(data) {
+export function makeAPIRequestWithBytes(data) {
 
     cApp.models.predict(Clarifai.GENERAL_MODEL, {base64: data}, {video: true})
+
+    .then(function(response) {
+        return response;
+    })
+    .catch(function(err) {
+        console.log(err);
+        return null;
+    });
+}
+
+export function makeAPIRequestWithUrl(url) {
+
+    cApp.models.predict(Clarifai.GENERAL_MODEL, url, {video: true})
 
     .then(function(response) {
         return response;
