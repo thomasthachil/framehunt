@@ -44,7 +44,7 @@ export default class SelectVideoPage extends Component {
 
         //tommy's youtube magic here
         // use this.state.ytUrl
-        console.log("tommy do your thang");
+        alert("tommy do your thang");
     }
 
     handleRawSubmit() {
@@ -67,7 +67,8 @@ export default class SelectVideoPage extends Component {
             console.log(e);
         })
             .catch(e => {
-                console.log('error', e);
+                alert('We were not able to parse your video!', e);
+                this.props.setPage(0);
             });
     }
 
@@ -84,6 +85,9 @@ export default class SelectVideoPage extends Component {
             this.props.nPage();
             // makeAPIRequest()
             console.log('upload post result: ', e);
+        }).catch(e => {
+            alert('We were not able to parse your video!', e);
+            this.props.setPage(0);
         });
 
 
