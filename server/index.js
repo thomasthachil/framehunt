@@ -4,7 +4,7 @@ var youtubedl = require('youtube-dl');
 var FileReader = require('filereader');
 var multer  = require('multer');
 var fs = require('fs');
-
+var ytdl = require('ytdl-core');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,22 +20,18 @@ var upload = multer({
   limits: {fileSize: 9 * 1000000}
 });
 
-// Get byte stream for youtube video
+
+var counter = 0;
+
+// Get byte stream for video
 router.get('/bytes', function(req, res, next) {
-    console.log(req.query.url)
-    var video = youtubedl(req.query.url);
-
-    video.on('info', function(info) {
-      console.log('Download started');
-      console.log('filename: ' + info.filename);
-      console.log('size: ' + info.size);
-    });
-
-    var fileReader = new FileReader();
-    fileReader.readAsDataURL(video);
-    res.send(fileReader.result);
-
-  // res.send(fs.readFileSync(filename, { encoding: 'base64' }));
+    var filename =  "video" + counter + ".mp4";
+    counter += 1;
+    ytdl(req.query.url)
+      .pipe(fs.createWriteStream("../public/" + filename)).on('finish', function() {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(filename);
+      });
 });
 
 // Get byte stream for video
