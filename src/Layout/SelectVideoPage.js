@@ -82,7 +82,7 @@ export default class SelectVideoPage extends Component {
     render() {
         return (
             <Container className="left">
-                <h3>LINK YOUTUBE VIDEO</h3>
+                <h3>Link Youtube Video</h3>
                 <Form onSubmit={() => this.handleYoutubeSubmit()}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
@@ -93,8 +93,8 @@ export default class SelectVideoPage extends Component {
                         value = {this.state.ytUrl}
                     />
                 </Form>
-                <h3>LINK RAW VIDEO</h3>
-                <Form onSubmit={() => this.handleRawSubmit()}>
+                <h3>Link Raw Video</h3>
+                <Form onSubmit={() => this.handleRawSubmit(this.state.rawUrl)}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
                         iconPosition='left'
@@ -104,7 +104,7 @@ export default class SelectVideoPage extends Component {
                         value = {this.state.rawUrl}
                     />
                 </Form>
-                <h3>UPLOAD VIDEO</h3>
+                <h3>Upload Video</h3>
 
                 <Form onSubmit={() => this.handleFileUpload()}>
                     <Form.Input className="fileInput"
