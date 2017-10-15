@@ -1,4 +1,4 @@
-export const response = {
+export const dummyResponse = {
     "status": {
       "code": 10000,
       "description": "Ok"
