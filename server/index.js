@@ -33,6 +33,7 @@ router.get('/ytupload', cors(), function(req, res, next) {
 // Get byte stream for video
 router.post('/upload', cors(), upload.single('video'), function(req, res, next) {
     var video = req.file;
+    console.log(video.path);
     res.send(video.path);
 });
 
