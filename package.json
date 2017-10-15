@@ -4,13 +4,15 @@
   "private": true,
   "dependencies": {
     "clarifai": "^2.4.0",
-    "express": "^4.16.2",
-    "fs": "0.0.1-security",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
+    "redux": "^3.7.2",
+    "semantic-ui-react": "^0.74.2",
+    "video-react": "^0.8.8"
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
     "youtube-dl": "^1.12.2",
-    "semantic-ui-react": "^0.74.2"
   },
   "scripts": {
     "start": "react-scripts start",
