@@ -72,8 +72,8 @@ class App extends Component {
 
   render() {
     const steps = [
-      { active: this.state.stage === 0, icon: 'video', title: 'Select Video', description: 'Upload or Paste Youtube URL' },
-      { disabled: this.state.stage < 1, active: this.state.stage === 1, icon: 'hourglass start', title: 'Processing', description: 'Scanning all frames of your video' },
+      { active: this.state.stage === 0, icon: 'video', title: 'Select Video', description: 'Upload or paste video URL.' },
+      { disabled: this.state.stage < 1, active: this.state.stage === 1, icon: 'hourglass start', title: 'Processing', description: 'Scanning all frames of your video :)' },
       { disabled: this.state.stage < 2, active: this.state.stage === 2, icon: 'search', title: 'Hunt', description: 'Search for scenes with something in it!' },
     ];
 

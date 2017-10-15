@@ -78,33 +78,30 @@ export default class SelectVideoPage extends Component {
 
     render() {
         return (
-            <Container>
-                <h4>Link Youtube Video</h4>
+            <Container className="left">
+                <h3>LINK YOUTUBE VIDEO</h3>
                 <Form onSubmit={() => this.handleYoutubeSubmit()}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
                         iconPosition='left'
                         action={{ icon: 'youtube play' }}
-                        placeholder='Paste Youtube Link'
+                        placeholder='Paste YouTube video link.'
                         onChange={e => this.setState({ytUrl: e.target.value})}
                         value = {this.state.ytUrl}
                     />
                 </Form>
-                <h3> OR</h3>
-                <h4>Link Raw Video</h4>
+                <h3>LINK RAW VIDEO</h3>
                 <Form onSubmit={() => this.handleRawSubmit()}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
                         iconPosition='left'
                         action={{ icon: 'file video outline' }}
-                        placeholder='Paste Raw Link'
+                        placeholder='Paste raw video link.'
                         onChange={e => this.setState({rawUrl: e.target.value})}
                         value = {this.state.rawUrl}
                     />
                 </Form>
-                <h3> OR</h3>
-                <h4>Upload Video</h4>
-
+                <h3>UPLOAD VIDEO</h3>
 
                 <Form onSubmit={() => this.handleFileUpload()}>
                     <Form.Input className="fileInput"
