@@ -10,7 +10,7 @@
 import Clarifai from 'clarifai';
 
 export const cApp = new Clarifai.App({
-    apiKey: 'b5e275730525460ea1851c88529afcd6'
+    apiKey: 'e5ae2615da2c41239c2efd42163308e7'
 });
 
 
