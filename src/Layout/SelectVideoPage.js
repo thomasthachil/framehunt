@@ -29,7 +29,6 @@ export default class SelectVideoPage extends Component {
         fetch('http://52.206.8.179:5000/ytupload?url=' + ytUrl)
         .then(res => res.text())
         .then(parsedStr => {
-            alert(parsedStr);
             this.handleRawSubmit("http://52.206.8.179/videos/" + parsedStr);
         }).catch(e => console.log(e));
     }
