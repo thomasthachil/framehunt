@@ -24,41 +24,27 @@ export default class SelectVideoPage extends Component {
     }
 
     handleYoutubeSubmit() {
-        const url = this.state.ytUrl;
-        fetch('/ytupload?url=' + url)
-            .then(res => res.text())
-            .then(res => {
-                var url = "https://samples.clarifai.com/demo-vid-1.mp4"
-                cApp.models.predict(Clarifai.GENERAL_MODEL,
-                    {url},
-                    { video: true })
-                .then(e => {
-                    this.props.nPage();
-                    this.props.setResponse(e);
-        
-                    console.log(e);
-                })
-                .catch(e => console.log('error', e));
-        });
+        const ytUrl = this.state.ytUrl;
+        console.log(ytUrl);
+        var myUrl = "https://samples.clarifai.com/demo-vid-1.mp4";
+        fetch('/ytupload?url=' + ytUrl)
+        .then(res => res.text())
+        .then(res => {
+        }).catch(e => console.log(e));
+        this.handleRawSubmit(myUrl);
 
-
-        //tommy's youtube magic here
-        // use this.state.ytUrl
-        alert("tommy do your thang");
     }
 
-    handleRawSubmit() {
-        console.log('SVP:', this.state.rawUrl);
-        this.props.setUrl(this.state.rawUrl);
+    handleRawSubmit(submitUrl) {
+        this.props.setUrl(submitUrl);
         this.props.nPage();
-        const rawUrl = this.state.rawUrl;
 
-        console.log('video being submitted:', rawUrl);
+        console.log('video being submitted:', submitUrl);
 
         console.log(cApp);
 
         cApp.models.predict(Clarifai.GENERAL_MODEL,
-            {url: rawUrl},
+            {url: submitUrl},
             { video: true })
         .then(e => {
             this.props.nPage();
@@ -110,7 +96,7 @@ export default class SelectVideoPage extends Component {
                 </Form>
                 <h3> OR</h3>
                 <h4>Link Raw Video</h4>
-                <Form onSubmit={() => this.handleRawSubmit()}>
+                <Form onSubmit={() => this.handleRawSubmit(this.state.rawUrl)}>
                     <Form.Input
                         style={{ alignSelf: 'center' }}
                         iconPosition='left'
