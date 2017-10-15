@@ -7,7 +7,7 @@ var cors = require('cors');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, '../inputs/')
+    cb(null, '../public/videos/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now())
@@ -32,9 +32,9 @@ router.get('/ytupload', cors(), function(req, res, next) {
 });
 
 // Get byte stream for video
-router.post('/upload', upload.single('video'), function(req, res, next) {
+router.post('/upload', cors(), upload.single('video'), function(req, res, next) {
     var video = req.file;
-    res.send(fs.readFileSync(video.path, { encoding: 'base64' }));
+    res.send(video.path);
 });
 
 module.exports = router;

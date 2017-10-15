@@ -58,18 +58,19 @@ export default class SelectVideoPage extends Component {
     }
 
     handleFileUpload(e) {
-        console.log('uploaded:');
-
+        var mythis = this;
         var data = new FormData()
         data.append('video', e.target.files[0])
         this.props.nPage();
-        fetch('/upload', {
+        fetch('http://52.206.8.179:5000/upload', {
             method: 'POST',
             body: data
-        }).then(e => {
-            this.props.nPage();
-            // makeAPIRequest()
-            console.log('upload post result: ', e);
+        })
+        .then(res => res.text())
+        .then(parsedStr => {
+            setTimeout(function() {
+                mythis.handleRawSubmit(parsedStr);
+            }, 2000);
         }).catch(e => {
             alert('We were not able to parse your video!', e);
             this.props.setPage(0);
