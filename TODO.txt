@@ -1,0 +1,9 @@
+PROCESSING
+(assume we have a video)
+- split video into frames
+- for each second, choose frame with least blur
+- object detection -> switch from Clarifai -> build inhouse model (get good data set)
+- set up search database with timestamp -> [object tags] (elastic search?)
+
+INTERFACE
+- explore other ways of jumping to frames and different UI elements for linking frames to tags.
